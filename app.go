@@ -31,15 +31,23 @@ func (a *App) Login(name string, password string) {
 	fmt.Println("Not implemented yet")
 }
 
-func (a *App) Register(name string, password string) {
+func (a *App) Register(name string, password string) (bool, error) {
 	client, err := mongodb.InitMongo()
 	if err != nil {
-		panic("Unable to login to Mongo" + err.Error())
+		fmt.Println(err.Error())
+		return false, fmt.Errorf("unable to connect db")
 	}
-	user := mongodb.User{Login: name, Password: password}
+
+	resp, errHash := HashPasswordBcrypt(password)
+	if errHash != nil {
+		return false, errHash
+	}
+
+	user := mongodb.User{Login: name, Password: resp}
 	err = mongodb.AddUser(client, "PassMan", "User", user)
 
 	if err != nil {
-		panic("Unable to register user")
+		return false, fmt.Errorf("unknown error")
 	}
+	return true, nil
 }
