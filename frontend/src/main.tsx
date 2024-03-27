@@ -9,6 +9,8 @@ const root = createRoot(container!)
 
 root.render(
     <React.StrictMode>
-        <App/>
+        <div style={{backgroundColor: 'rgb(29, 37, 53)', minHeight: '100vh'}}>
+            <App/>
+        </div>
     </React.StrictMode>
 )
