@@ -1,16 +1,18 @@
-import React from 'react'
-import {createRoot} from 'react-dom/client'
-import './style.css'
-import App from './App'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { HashRouter, Routes, Route } from "react-router-dom";
+import './style.css';
+import App from './App';
+import Home from "./Home";
 
-const container = document.getElementById('root')
+const container = document.getElementById('root');
 
-const root = createRoot(container!)
-
-root.render(
-    <React.StrictMode>
-        <div style={{backgroundColor: 'rgb(29, 37, 53)', minHeight: '100vh'}}>
-            <App/>
-        </div>
-    </React.StrictMode>
-)
+ReactDOM.render(
+    <HashRouter basename="/">
+        <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/home" element={<Home />} />
+        </Routes>
+    </HashRouter>,
+    container
+);

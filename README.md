@@ -17,3 +17,5 @@ to this in your browser, and you can call your Go code from devtools.
 ## Building
 
 To build a redistributable, production mode package, use `wails build`.
+
+To build a windows application : `wails build -platform windows/amd64 -nsis`

@@ -10,7 +10,7 @@ type LoginInputProps = {
 function FormInput({ onUpdateInput, title }: LoginInputProps) {
     const [input, setInput] = useState('');
 
-    const handlePasswordChange = (e: { target: { value: any; }; }) => {
+    const handleInputChange = (e: { target: { value: any; }; }) => {
         const newInput = e.target.value;
         setInput(newInput);
         onUpdateInput(newInput);
@@ -20,8 +20,9 @@ function FormInput({ onUpdateInput, title }: LoginInputProps) {
         <>
             <Form.Label style={{ color: 'white' }} htmlFor="input">{title}</Form.Label>
             <Form.Control
+                id="input"
                 value={input}
-                onChange={handlePasswordChange}
+                onChange={handleInputChange}
             />
         </>
     );

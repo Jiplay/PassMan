@@ -37,7 +37,6 @@ func (a *App) Register(name string, password string) (bool, error) {
 		fmt.Println(err.Error())
 		return false, fmt.Errorf("unable to connect db")
 	}
-
 	resp, errHash := HashPasswordBcrypt(password)
 	if errHash != nil {
 		return false, errHash
@@ -45,7 +44,6 @@ func (a *App) Register(name string, password string) (bool, error) {
 
 	user := mongodb.User{Login: name, Password: resp}
 	err = mongodb.AddUser(client, "PassMan", "User", user)
-
 	if err != nil {
 		return false, fmt.Errorf("unknown error")
 	}
