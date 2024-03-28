@@ -10,6 +10,8 @@ import PasswordInput from "./components/PasswordForm";
 import FormInput from "./components/Form";
 import {useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function RegisterPage() {
     const [resultText, setResultText] = useState('');
@@ -19,6 +21,12 @@ function RegisterPage() {
 
     async function register() {
         setResultText(await Register(name, password))
+        if (resultText != "true") {
+            toast.error("Registration failed")
+        } else {
+            toast.success("Registration success")
+            navigate('/login');
+        }
     }
     const redirectToHome = () => {
         navigate('/login');

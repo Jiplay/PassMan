@@ -28,6 +28,10 @@ func (a *App) Greet(name string) string {
 }
 
 func (a *App) Login(name string, password string) string {
+	if len(name) <= 6 || len(password) < 12 {
+		return "false"
+	}
+
 	client, err := mongodb.InitMongo()
 	if err != nil {
 		fmt.Println(err.Error())
@@ -47,12 +51,10 @@ func (a *App) Login(name string, password string) string {
 func (a *App) Register(name string, password string) string {
 	resp, errHash := HashPasswordBcrypt(password)
 	if errHash != nil {
-		fmt.Println("non")
 		return "false"
 	}
 	client, err := mongodb.InitMongo()
 	if err != nil {
-		fmt.Println(err.Error())
 		return "false"
 	}
 

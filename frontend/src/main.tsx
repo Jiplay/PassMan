@@ -5,7 +5,8 @@ import './style.css';
 import RegisterPage from './RegisterPage';
 import Home from "./Home";
 import Login from "./Login";
-
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const container = document.getElementById('root');
 
@@ -16,6 +17,7 @@ ReactDOM.render(
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
         </Routes>
+        <ToastContainer />
     </HashRouter>,
     container
 );

@@ -9,12 +9,14 @@ import {Button} from "react-bootstrap";
 import PasswordInput from "./components/PasswordForm";
 import FormInput from "./components/Form";
 import {useNavigate} from "react-router-dom";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
+import {toast} from "react-toastify";
 
 function LoginPage() {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('false');
     const navigate = useNavigate();
 
     async function login() {
@@ -22,7 +24,7 @@ function LoginPage() {
         if (res === "true") {
             navigate('/home');
         } else {
-            setError('true');
+            toast.error("Unable to login.")
         }
     }
     const redirectToHome = () => {
@@ -48,7 +50,7 @@ function LoginPage() {
                             </div>
                             <div style={{marginTop: '10%'}}>
                                 <p style={{color: 'white'}}>
-                                    You don't have an account yet ? Error : {error}
+                                    You don't have an account yet ?
                                 </p>
                                 <Button style={{margin: 'auto'}} onClick={redirectToHome}
                                         variant="primary">Register</Button>
