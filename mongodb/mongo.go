@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"os"
@@ -79,4 +80,20 @@ func AddUser(client *mongo.Client, dbName, collectionName string, user User) err
 
 	fmt.Println("User added successfully!")
 	return nil
+}
+
+func GetUser(client *mongo.Client, username string) (*User, error) {
+	collection := client.Database("PassMan").Collection("User")
+	ctx := context.Background()
+
+	filter := bson.M{"login": username}
+
+	var user User
+
+	err := collection.FindOne(ctx, filter).Decode(&user)
+	if err != nil {
+		return nil, err
+	}
+
+	return &user, nil
 }

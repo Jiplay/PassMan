@@ -11,19 +11,17 @@ import FormInput from "./components/Form";
 import {useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
-    const [resultText, setResultText] = useState("Please enter your name below 👇");
+function RegisterPage() {
+    const [resultText, setResultText] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
-    let resp;
     const navigate = useNavigate();
 
     async function register() {
-        resp = await Register(name, password)
+        setResultText(await Register(name, password))
     }
-
     const redirectToHome = () => {
-        navigate('/home');
+        navigate('/login');
     };
 
     return (
@@ -37,6 +35,7 @@ function App() {
                             justifyContent: 'center',
                             height: '100vh'
                         }}>
+                            <h1 style={{color: 'white'}}> Register here</h1>
                             <div style={{margin: 'auto'}}>
                                 <FormInput title={"Login"} onUpdateInput={setName}></FormInput>
                                 <PasswordInput onUpdatePassword={setPassword}></PasswordInput>
@@ -44,7 +43,7 @@ function App() {
                             <div style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
                                 <Button style={{margin: 'auto', marginRight: '20px'}} onClick={register} variant="primary">Register</Button>
                                 <Button style={{margin: 'auto'}} onClick={redirectToHome} variant="primary">Login</Button>
-                            </div>d
+                            </div>
                         </Col>
                         <Col sm={8}>
                         <img src={logo} id="logo" alt="logo" width={"400px"}/>
@@ -82,4 +81,4 @@ function App() {
     )
 }
 
-export default App
+export default RegisterPage

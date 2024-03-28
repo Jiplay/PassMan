@@ -27,25 +27,39 @@ func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's show time!", name)
 }
 
-func (a *App) Login(name string, password string) {
-	fmt.Println("Not implemented yet")
-}
-
-func (a *App) Register(name string, password string) (bool, error) {
+func (a *App) Login(name string, password string) string {
 	client, err := mongodb.InitMongo()
 	if err != nil {
 		fmt.Println(err.Error())
-		return false, fmt.Errorf("unable to connect db")
+		return "false"
 	}
+	userData, err := mongodb.GetUser(client, name)
+	if err != nil {
+		fmt.Println(err.Error())
+		return "false"
+	}
+	if CheckPasswordHash(password, userData.Password) == true {
+		return "true"
+	}
+	return "false"
+}
+
+func (a *App) Register(name string, password string) string {
 	resp, errHash := HashPasswordBcrypt(password)
 	if errHash != nil {
-		return false, errHash
+		fmt.Println("non")
+		return "false"
+	}
+	client, err := mongodb.InitMongo()
+	if err != nil {
+		fmt.Println(err.Error())
+		return "false"
 	}
 
 	user := mongodb.User{Login: name, Password: resp}
 	err = mongodb.AddUser(client, "PassMan", "User", user)
 	if err != nil {
-		return false, fmt.Errorf("unknown error")
+		return "false"
 	}
-	return true, nil
+	return "true"
 }
