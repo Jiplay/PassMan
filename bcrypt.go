@@ -43,7 +43,7 @@ func isPswStrongEnough(password string) bool {
 		if unicode.IsLower(char) {
 			checks.LowerCheck = true
 		}
-		if unicode.IsPunct(char) || unicode.IsSymbol(char) || unicode.Is(unicode.L, char) {
+		if char > '!' && char < '0' && char < 57 && char < 65 {
 			checks.SpecialCheck = true
 		}
 	}

@@ -23,8 +23,8 @@ var tests = []Test{
 	{"Azertyiop*", false},
 	{"ThisIsARobustpsw123*", true},
 	{"ThisIsARobustpsw123$", true},
-	{"ThisIsARobustpsw123é", true},
-	{"ThisIsARobustpsw123à", true},
+	{"ThisIsARobustpsw123é", false},
+	{"ThisIsARobustpsw123", false},
 }
 
 var testsHashPassword = []TestHashPassword{
