@@ -14,16 +14,15 @@ import {toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 function RegisterPage() {
-    const [resultText, setResultText] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     async function register() {
-        setResultText(await Register(name, password))
-        if (resultText != "true") {
+        let res = await Register(name, password)
+        if (res == "false") {
             toast.error("Registration failed")
-        } else {
+        } else if (res == "true") {
             toast.success("Registration success")
             navigate('/login');
         }
