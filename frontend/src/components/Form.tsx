@@ -1,13 +1,15 @@
 
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
+import {FloatingLabel} from "react-bootstrap";
 
 type LoginInputProps = {
     title: string;
     onUpdateInput: (newInput: string) => void;
+    placeHolder: string;
 };
 
-function FormInput({ onUpdateInput, title }: LoginInputProps) {
+function FormInput({ onUpdateInput, title, placeHolder }: LoginInputProps) {
     const [input, setInput] = useState('');
 
     const handleInputChange = (e: { target: { value: any; }; }) => {
@@ -18,12 +20,18 @@ function FormInput({ onUpdateInput, title }: LoginInputProps) {
 
     return (
         <>
-            <Form.Label style={{ color: 'white' }} htmlFor="input">{title}</Form.Label>
-            <Form.Control
-                id="input"
-                value={input}
-                onChange={handleInputChange}
-            />
+            <FloatingLabel
+                controlId="floatingInput"
+                label={placeHolder}
+                className="mb-3"
+            >
+                <Form.Control
+                    id="input"
+                    value={input}
+                    onChange={handleInputChange}
+                    placeholder={placeHolder}
+                />
+            </FloatingLabel>
         </>
     );
 }

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import logo from './assets/images/logo-universal.png';
 import {Register} from "../wailsjs/go/main/App";
 
@@ -12,6 +12,7 @@ import {useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Form from "react-bootstrap/Form";
 
 function RegisterPage() {
     const [name, setName] = useState('');
@@ -44,8 +45,13 @@ function RegisterPage() {
                         }}>
                             <h1 style={{color: 'white'}}> Register here</h1>
                             <div style={{margin: 'auto'}}>
-                                <FormInput title={"Login"} onUpdateInput={setName}></FormInput>
+                                <FormInput title={"Login"} onUpdateInput={setName} placeHolder={"Login"}></FormInput>
                                 <PasswordInput onUpdatePassword={setPassword}></PasswordInput>
+                                <Form.Text id="passwordHelpBlock" style={{ color: 'white' }}>
+                                    Your password must be 13-20 characters long, contain letters and numbers,
+                                    and at least 1 special characters,
+                                    and must not contain spaces, or emoji.
+                                </Form.Text>
                             </div>
                             <div style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
                                 <Button style={{margin: 'auto', marginRight: '20px'}} onClick={register} variant="primary">Register</Button>
