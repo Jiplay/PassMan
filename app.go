@@ -59,7 +59,7 @@ func (a *App) Register(name string, password string) string {
 	}
 
 	user := mongodb.User{Login: name, Password: resp}
-	err = mongodb.AddUser(client, "PassMan", "User", user)
+	err = mongodb.AddUniqueUser(client, "PassMan", "User", user)
 	if err != nil {
 		return "false"
 	}

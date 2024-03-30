@@ -3,6 +3,7 @@ package mongodb
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -68,12 +69,18 @@ func InitMongo() (*mongo.Client, error) {
 	return client, nil
 }
 
-func AddUser(client *mongo.Client, dbName, collectionName string, user User) error {
-	// Get a handle for your collection
+func AddUniqueUser(client *mongo.Client, dbName, collectionName string, user User) error {
 	collection := client.Database(dbName).Collection(collectionName)
 
-	// Insert User document into the collection
-	_, err := collection.InsertOne(context.Background(), user)
+	existingUser := User{}
+	err := collection.FindOne(context.Background(), bson.M{"login": user.Login}).Decode(&existingUser)
+	if err == nil {
+		return fmt.Errorf("login already used")
+	} else if !errors.Is(err, mongo.ErrNoDocuments) {
+		return err
+	}
+
+	_, err = collection.InsertOne(context.Background(), user)
 	if err != nil {
 		return err
 	}
