@@ -1,16 +1,12 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import {Button} from "react-bootstrap";
+import {Image} from "react-bootstrap";
 import 'react-toastify/dist/ReactToastify.css';
-import FormInput from "./components/Form";
-import PasswordInput from "./components/PasswordForm";
 import NavBarHome from "./components/NavBar";
-import {Icons} from "react-toastify";
 import { BsFileLock2Fill } from "react-icons/bs";
+import PassManComics from "./assets/images/PassManComics.png";
 
 interface LocationState {
     mainPassword: string;
@@ -31,8 +27,8 @@ const Home: React.FC = () => {
                     <Col md={3}>
                         <p>Website registered</p>
                     </Col>
-                    <Col style={{backgroundColor: "rgb(248, 249, 250)"}}>
-                        <h1>TEST</h1>
+                    <Col style={{backgroundColor: "rgb(248, 249, 250)", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                        <Image src={PassManComics} width={"300px"}></Image>
                     </Col>
                 </Row>
         </>
