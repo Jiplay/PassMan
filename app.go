@@ -65,3 +65,11 @@ func (a *App) Register(name string, password string) string {
 	}
 	return "true"
 }
+
+func (a *App) GenerateSafePassword(length int) string {
+	password, err := GeneratePassword(length)
+	if err != nil {
+		return "failure"
+	}
+	return password
+}
