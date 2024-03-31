@@ -28,7 +28,7 @@ func (a *App) Greet(name string) string {
 }
 
 func (a *App) Login(name string, password string) string {
-	if len(name) <= 6 || len(password) < 12 {
+	if len(name) <= 4 || len(password) < 12 {
 		return "false"
 	}
 
@@ -50,7 +50,7 @@ func (a *App) Login(name string, password string) string {
 
 func (a *App) Register(name string, password string) string {
 	resp, errHash := HashPasswordBcrypt(password)
-	if errHash != nil {
+	if errHash != nil || len(name) <= 4 {
 		return "false"
 	}
 	client, err := mongodb.InitMongo()
@@ -72,4 +72,28 @@ func (a *App) GenerateSafePassword(length int) string {
 		return "failure"
 	}
 	return password
+}
+
+func (a *App) SaveCredentials(userData mongodb.User, credentials mongodb.Credentials) string {
+	if userData.Login == "" || credentials.Password == "" || credentials.Website == "" {
+		return "false"
+	}
+	client, err := mongodb.InitMongo()
+	if err != nil {
+		return "false"
+	}
+
+	pswEncoded, _ := Encrypt(userData.Password, credentials.Password)
+
+	creds := mongodb.Credentials{
+		Website:    credentials.Website,
+		Login:      credentials.Login,
+		Password:   pswEncoded,
+		Additional: credentials.Additional,
+	}
+	_, err = mongodb.AddPassword(client, userData.Login, creds)
+	if err != nil {
+		return "false"
+	}
+	return "true"
 }

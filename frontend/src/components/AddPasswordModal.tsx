@@ -4,23 +4,50 @@ import Modal from 'react-bootstrap/Modal';
 import Form from "react-bootstrap/Form";
 import FormInput from "./Form";
 import PasswordForm from "./PasswordForm";
-
+import {SaveCredentials} from "../../wailsjs/go/main/App";
+import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 type AddPasswordModalProps = {
     titleModal: string
     titleButton: string
-    userPassword: string
     username: string
+    password: string
 }
 
-
-function AddPasswordModal( { titleModal, titleButton }: AddPasswordModalProps ) {
+function AddPasswordModal( { titleModal, titleButton, username, password }: AddPasswordModalProps ) {
     const [show, setShow] = useState(false);
     const [newLogin, setNewLogin] = useState('')
     const [newPassword, setNewPassword] = useState('')
     const [website, setWebsite] = useState('')
-    const handleClose = () => setShow(false);
+    const [info, setInfo] = useState('')
     const handleShow = () => setShow(true);
+
+    function handleCloseSafe() {
+        setNewLogin("")
+        setNewPassword("")
+        setWebsite("")
+        setInfo("")
+        setShow(false)
+    }
+
+    async function saveData() {
+        let res: string;
+        res = await SaveCredentials({"login": username, "password": password}, {"Website": website, "Login": newLogin, "Password": newPassword, "Additional": info});
+        handleCloseSafe()
+
+        if (res === "true") {
+            toast.success("I'll remember it")
+        } else {
+            toast.error("Unable to remember this.")
+        }
+        console.log("State : ", res)
+    }
+
+    const handleInputChange = (e: { target: { value: any; }; }) => {
+        const newInput = e.target.value;
+        setInfo(newInput);
+    };
 
     return (
         <>
@@ -28,7 +55,7 @@ function AddPasswordModal( { titleModal, titleButton }: AddPasswordModalProps ) 
                 {titleButton}
             </Button>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleCloseSafe}>
                 <Modal.Header closeButton>
                     <Modal.Title>{titleModal}</Modal.Title>
                 </Modal.Header>
@@ -48,16 +75,16 @@ function AddPasswordModal( { titleModal, titleButton }: AddPasswordModalProps ) 
                             controlId="exampleForm.ControlTextarea1"
                         >
                             <Form.Label>Optional notes regarding this password</Form.Label>
-                            <Form.Control as="textarea" rows={3}/>
+                            <Form.Control as="textarea" onChange={handleInputChange} rows={3}/>
                         </Form.Group>
                     </div>
                 </Form>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={handleCloseSafe}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Let PassMan Remember it for you
+                    <Button variant="primary" onClick={saveData}>
+                        Let PassMan remember it for you
                     </Button>
                 </Modal.Footer>
             </Modal>

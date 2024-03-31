@@ -21,6 +21,18 @@ type User struct {
 	Password string `bson:"password"`
 }
 
+type Credentials struct {
+	Website    string
+	Login      string
+	Password   string
+	Additional string
+}
+
+type Vault struct {
+	Login       string        `bson:"login"`
+	Credentials []Credentials `bson:"credentials"`
+}
+
 func getCredentialsFromFile(path string) (config, error) {
 	var cfg config
 	file, err := os.Open(path)
@@ -81,6 +93,12 @@ func AddUniqueUser(client *mongo.Client, dbName, collectionName string, user Use
 	}
 
 	_, err = collection.InsertOne(context.Background(), user)
+
+	if err != nil {
+		return err
+	}
+
+	_, err = initVault(client, user.Login, user.Password)
 	if err != nil {
 		return err
 	}
@@ -103,4 +121,36 @@ func GetUser(client *mongo.Client, username string) (*User, error) {
 	}
 
 	return &user, nil
+}
+
+func initVault(client *mongo.Client, username string, hash string) (bool, error) {
+	vaultCollection := client.Database("PassMan").Collection("Vaults")
+
+	v := Vault{
+		username,
+		[]Credentials{},
+	}
+
+	_, err := vaultCollection.InsertOne(context.Background(), v)
+
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
+}
+
+func AddPassword(client *mongo.Client, username string, credentials Credentials) (bool, error) {
+	vaultsCollection := client.Database("PassMan").Collection("Vaults")
+
+	filter := bson.M{"login": username}
+	update := bson.M{"$push": bson.M{"credentials": credentials}}
+
+	_, err := vaultsCollection.UpdateOne(context.Background(), filter, update)
+
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
 }

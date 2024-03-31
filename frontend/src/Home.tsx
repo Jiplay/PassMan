@@ -19,7 +19,7 @@ const Home: React.FC = () => {
 
     return (
         <>
-            <NavBarHome username={name}/>
+            <NavBarHome username={name} password={mainPassword} />
                 <Row>
                     <Col sm={3} style={{backgroundColor: "rgb(29, 37, 53)", height: "100vh", width:"10%"}}>
                         <BsFileLock2Fill style={{fontSize: "50px", color: "white", marginTop: "25px"}} />
