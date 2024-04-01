@@ -2,16 +2,17 @@ import React, {useEffect, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import {Image} from "react-bootstrap";
+import {Button, Image} from "react-bootstrap";
 import 'react-toastify/dist/ReactToastify.css';
 import NavBarHome from "./components/NavBar";
 import { BsFileLock2Fill } from "react-icons/bs";
 import PassManComics from "./assets/images/PassManComics.png";
 import ListView from "./components/ListView";
-import {GetPasswordForUser} from "../wailsjs/go/main/App";
+import {DecryptPsw, GetPasswordForUser} from "../wailsjs/go/main/App";
 
 // @ts-ignore  Strange but necessary, works in prod mode
 import {mongodb} from '../models';
+import {toast} from "react-toastify";
 
 interface LocationState {
     mainPassword: string;
@@ -39,8 +40,20 @@ const Home: React.FC = () => {
 
     async function getPasswords () {
         let res = await GetPasswordForUser(name)
-
         setWebsites(res)
+    }
+
+    async function pswToClipboard() {
+        let resp;
+        if (websites) {
+            resp = await DecryptPsw(mainPassword, websites[selectedWebsite].Password)
+            if (resp !== "") {
+                await navigator.clipboard.writeText(resp)
+                toast.success("Successfully save in clipboard")
+            } else {
+                toast.error("Unknown error")
+            }
+        }
     }
 
     useEffect(() => {
@@ -63,11 +76,16 @@ const Home: React.FC = () => {
                             <div>
                                 <h4>{websites[selectedWebsite].Website}</h4>
                                 <p>Login {websites[selectedWebsite].Login} </p>
-                                <p> Password {websites[selectedWebsite].Password}</p>
+                                <p> Encoded password {websites[selectedWebsite].Password}</p>
+                                <Button variant="primary" onClick={pswToClipboard}>
+                                    Copy decrypted password to clipboard
+                                </Button>
                                 <p> Notes: {websites[selectedWebsite].Additional}</p>
                             </div>
                         ) : (
-                            <Image src={PassManComics} width={"300px"}></Image>
+                            <div style={{}}>
+                                <Image src={PassManComics} width={"500px"}></Image>
+                            </div>
                         )}
                     </Col>
                 </Row>

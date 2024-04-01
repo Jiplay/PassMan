@@ -114,3 +114,17 @@ func (a *App) GetPasswordForUser(username string) []mongodb.Credentials {
 
 	return resp.Credentials
 }
+
+func (a *App) DecryptPsw(mainPassword string, password string) string {
+	if password == "" || len(mainPassword) <= 10 {
+		return ""
+	}
+
+	psw, err := Decrypt(mainPassword, password)
+
+	if err != nil {
+		return ""
+	}
+
+	return psw
+}
