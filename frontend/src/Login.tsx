@@ -26,8 +26,8 @@ function LoginPage() {
             toast.error("Unable to login.")
         }
     }
-    const redirectToHome = () => {
-        navigate('/');
+    const redirectToRegister = () => {
+        navigate('/register');
     };
 
     return (
@@ -52,7 +52,7 @@ function LoginPage() {
                                 <p style={{color: 'white'}}>
                                     You don't have an account yet ?
                                 </p>
-                                <Button style={{margin: 'auto'}} onClick={redirectToHome}
+                                <Button style={{margin: 'auto'}} onClick={redirectToRegister}
                                         variant="primary">Register</Button>
                             </div>
                         </Col>

@@ -1,18 +1,19 @@
-# README
+# PASSMAN!
 
 ## About
 
-This is the official Wails React-TS template.
+PassMan is my own PASSword MANager developed integrally by me, for my personal usage. It's built with Go and Typescript
+It's a cross-platform application developed with Wails. I'll write some articles in the future about it on my blog https://jgblog.vercel.app/.
 
-You can configure the project by editing `wails.json`. More information about the project settings can be found
-here: https://wails.io/docs/reference/project-config
+I used Wails for the ability to use TS, Fyne was less adapted to my use case according to me
 
-## Live Development
+There are several features already developed :
+* using bcrypt for the main password
+* other password are hashed with SHA-256.
+* Generating password
+* Cool logo
 
-To run in live development mode, run `wails dev` in the project directory. This will run a Vite development
-server that will provide very fast hot reload of your frontend changes. If you want to develop in a browser
-and have access to your Go methods, there is also a dev server that runs on http://localhost:34115. Connect
-to this in your browser, and you can call your Go code from devtools.
+But I'm not done, I'll create other to develop my skills, and to fill my needs :)
 
 ## Building
 

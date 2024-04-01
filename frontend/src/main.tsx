@@ -14,10 +14,10 @@ const container = document.getElementById('root');
 ReactDOM.render(
     <HashRouter basename="/">
         <Routes>
-            <Route path="/" element={<RegisterPage />} />
+            <Route path="/" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/generator" element={<Generator />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<RegisterPage />} />
         </Routes>
         <ToastContainer />
     </HashRouter>,

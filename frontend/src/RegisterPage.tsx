@@ -25,11 +25,11 @@ function RegisterPage() {
             toast.error("Registration failed")
         } else if (res == "true") {
             toast.success("Registration success")
-            navigate('/login');
+            navigate('/');
         }
     }
     const redirectToHome = () => {
-        navigate('/login');
+        navigate('/');
     };
 
     return (
