@@ -31,16 +31,19 @@ const Home: React.FC = () => {
     const { mainPassword, name } = location.state as LocationState|| {};
     const [websites, setWebsites] = useState<Array<mongodb.Credentials>>()
     const [selectedWebsite, setSelectedWebsite] = useState(-1)
+    const [reload, setReload] = useState("")
 
     const onItemClick = (id: number) => {
-        console.log('Item clicked:', id);
         setSelectedWebsite(id)
-        // Faites quelque chose avec l'ID de l'élément cliqué, par exemple, naviguer vers une autre page, afficher des détails, etc.
     };
 
     async function getPasswords () {
         let res = await GetPasswordForUser(name)
         setWebsites(res)
+    }
+
+    function fetchNewPassword(update: string) {
+        setReload(reload.concat(update))
     }
 
     async function pswToClipboard() {
@@ -58,11 +61,11 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         getPasswords();
-    }, [])
+    }, [reload])
 
     return (
         <>
-            <NavBarHome username={name} password={mainPassword} />
+            <NavBarHome username={name} password={mainPassword}  onUpdatePassword={fetchNewPassword}/>
                 <Row>
                     <Col sm={3} style={{backgroundColor: "rgb(29, 37, 53)", height: "100vh", width:"10%"}}>
                         <BsFileLock2Fill style={{fontSize: "50px", color: "white", marginTop: "25px"}} />

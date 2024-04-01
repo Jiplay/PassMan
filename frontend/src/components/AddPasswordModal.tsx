@@ -13,9 +13,10 @@ type AddPasswordModalProps = {
     titleButton: string
     username: string
     password: string
+    onUpdatePassword: (update: string) => void
 }
 
-function AddPasswordModal( { titleModal, titleButton, username, password }: AddPasswordModalProps ) {
+function AddPasswordModal( { titleModal, titleButton, username, password, onUpdatePassword }: AddPasswordModalProps ) {
     const [show, setShow] = useState(false);
     const [newLogin, setNewLogin] = useState('')
     const [newPassword, setNewPassword] = useState('')
@@ -38,6 +39,7 @@ function AddPasswordModal( { titleModal, titleButton, username, password }: AddP
 
         if (res === "true") {
             toast.success("I'll remember it")
+            onUpdatePassword("1")
         } else {
             toast.error("Unable to remember this.")
         }

@@ -6,9 +6,10 @@ import AddPasswordModal from "./AddPasswordModal";
 type NavBarHomeProps = {
     username: string;
     password: string;
+    onUpdatePassword: (update: string) => void
 }
 
-function NavBarHome( { username, password }: NavBarHomeProps) {
+function NavBarHome( { username, password, onUpdatePassword }: NavBarHomeProps) {
     return (
         <Navbar className="bg-body-tertiary">
             <Container>
@@ -16,7 +17,7 @@ function NavBarHome( { username, password }: NavBarHomeProps) {
                 <Navbar.Toggle/>
                 <Navbar.Collapse className="justify-content-end">
                     <div style={{marginRight: "20px"}}>
-                        <AddPasswordModal  titleButton={"Add a Password"} titleModal={"Password Settings"} username={username} password={password}/>
+                        <AddPasswordModal  titleButton={"Add a Password"} titleModal={"Password Settings"} username={username} password={password} onUpdatePassword={onUpdatePassword}/>
                     </div>
                     <Navbar.Text>
                         Signed in as: {username}
