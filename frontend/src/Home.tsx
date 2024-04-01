@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useLocation } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {Button, Image} from "react-bootstrap";
@@ -19,6 +19,8 @@ interface LocationState {
     name: string
 }
 
+import { BsFillShieldLockFill } from "react-icons/bs";
+
 interface ListItem {
     Website: string;
     Login: string;
@@ -32,6 +34,7 @@ const Home: React.FC = () => {
     const [websites, setWebsites] = useState<Array<mongodb.Credentials>>()
     const [selectedWebsite, setSelectedWebsite] = useState(-1)
     const [reload, setReload] = useState("")
+    const navigate = useNavigate();
 
     const onItemClick = (id: number) => {
         setSelectedWebsite(id)
@@ -67,8 +70,13 @@ const Home: React.FC = () => {
         <>
             <NavBarHome username={name} password={mainPassword}  onUpdatePassword={fetchNewPassword}/>
                 <Row>
-                    <Col sm={3} style={{backgroundColor: "rgb(29, 37, 53)", height: "100vh", width:"10%"}}>
+                    <Col sm={3} style={{backgroundColor: "rgb(29, 37, 53)", height: "90vh", width:"10%"}}>
                         <BsFileLock2Fill style={{fontSize: "50px", color: "white", marginTop: "25px"}} />
+                        <div onClick={() => {
+                            navigate('/generator', { state : {mainPassword: mainPassword, name: name }})
+                        }}>
+                            <BsFillShieldLockFill style={{fontSize: "50px", color: "white", marginTop: "50px"}} />
+                        </div>
                     </Col>
                     <Col md={3}>
                         <h3>Website registered</h3>
