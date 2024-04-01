@@ -154,3 +154,19 @@ func AddPassword(client *mongo.Client, username string, credentials Credentials)
 
 	return true, nil
 }
+
+func GetPasswords(client *mongo.Client, username string) (*Vault, error) {
+	collection := client.Database("PassMan").Collection("Vaults")
+	ctx := context.Background()
+
+	filter := bson.M{"login": username}
+
+	var vault Vault
+
+	err := collection.FindOne(ctx, filter).Decode(&vault)
+	if err != nil {
+		return nil, err
+	}
+
+	return &vault, nil
+}

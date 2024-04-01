@@ -6,6 +6,10 @@ export function GenerateSafePassword(arg1) {
   return window['go']['main']['App']['GenerateSafePassword'](arg1);
 }
 
+export function GetPasswordForUser(arg1) {
+  return window['go']['main']['App']['GetPasswordForUser'](arg1);
+}
+
 export function Greet(arg1) {
   return window['go']['main']['App']['Greet'](arg1);
 }

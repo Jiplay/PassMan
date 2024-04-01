@@ -97,3 +97,20 @@ func (a *App) SaveCredentials(userData mongodb.User, credentials mongodb.Credent
 	}
 	return "true"
 }
+
+func (a *App) GetPasswordForUser(username string) []mongodb.Credentials {
+	if len(username) <= 5 {
+		return nil
+	}
+	client, err := mongodb.InitMongo()
+	if err != nil {
+		return nil
+	}
+
+	resp, err := mongodb.GetPasswords(client, username)
+	if err != nil {
+		return nil
+	}
+
+	return resp.Credentials
+}
