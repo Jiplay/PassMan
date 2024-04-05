@@ -69,7 +69,7 @@ function AddPasswordModal( { titleModal, titleButton, username, password, onUpda
                         <FormInput title={"Login"} onUpdateInput={setNewLogin} placeHolder={"Login"}></FormInput>
                     </div>
                     <div style={{width: "60%", margin: "0 auto"}}>
-                        <PasswordForm onUpdatePassword={setNewPassword}/>
+                        <PasswordForm onUpdatePassword={setNewPassword} placeholder={"Password"}/>
                     </div>
                     <div style={{width: "75%", margin: "0 auto"}}>
                         <Form.Group

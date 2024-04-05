@@ -5,27 +5,19 @@ import Col from 'react-bootstrap/Col';
 import {Button, Image} from "react-bootstrap";
 import 'react-toastify/dist/ReactToastify.css';
 import NavBarHome from "./components/NavBar";
-import { BsFileLock2Fill } from "react-icons/bs";
 import PassManComics from "./assets/images/PassManComics.png";
 import ListView from "./components/ListView";
 import {DecryptPsw, GetPasswordForUser} from "../wailsjs/go/main/App";
 
 // @ts-ignore  Strange but necessary, works in prod mode
 import {mongodb} from '../models';
-import {toast} from "react-toastify";
+import {toast} from "react-toastify"
+import Menu from "./components/Menu";
+
 
 interface LocationState {
     mainPassword: string;
     name: string
-}
-
-import { BsFillShieldLockFill } from "react-icons/bs";
-
-interface ListItem {
-    Website: string;
-    Login: string;
-    Password: string;
-    Additional: string;
 }
 
 const Home: React.FC = () => {
@@ -67,40 +59,37 @@ const Home: React.FC = () => {
     }, [reload])
 
     return (
-        <>
+        <div style={{overflow:"hidden", backgroundColor: 'rgb(248, 249, 250)', minHeight: '100vh'}}>
             <NavBarHome username={name} password={mainPassword}  onUpdatePassword={fetchNewPassword}/>
+            <div style={{maxWidth: "100vw", maxHeight: "720px"}}>
                 <Row>
-                    <Col sm={3} style={{backgroundColor: "rgb(29, 37, 53)", height: "90vh", width:"10%"}}>
-                        <BsFileLock2Fill style={{fontSize: "50px", color: "white", marginTop: "25px"}} />
-                        <div onClick={() => {
-                            navigate('/generator', { state : {mainPassword: mainPassword, name: name }})
-                        }}>
-                            <BsFillShieldLockFill style={{fontSize: "50px", color: "white", marginTop: "50px"}} />
-                        </div>
-                    </Col>
-                    <Col md={3}>
-                        <h3>Website registered</h3>
-                        <ListView items={websites}  onItemClick={onItemClick}/>
-                    </Col>
-                    <Col style={{backgroundColor: "rgb(248, 249, 250)", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                        {selectedWebsite !== -1 && websites !== undefined ? (
-                            <div>
-                                <h4>{websites[selectedWebsite].Website}</h4>
-                                <p>Login {websites[selectedWebsite].Login} </p>
-                                <p> Encoded password {websites[selectedWebsite].Password}</p>
-                                <Button variant="primary" onClick={pswToClipboard}>
-                                    Copy decrypted password to clipboard
-                                </Button>
-                                <p> Notes: {websites[selectedWebsite].Additional}</p>
-                            </div>
-                        ) : (
-                            <div style={{}}>
-                                <Image src={PassManComics} width={"500px"}></Image>
-                            </div>
-                        )}
-                    </Col>
-                </Row>
-        </>
+                        <Col sm={3} style={{backgroundColor: "rgb(29, 37, 53)", height: "100vh", width:"10%"}}>
+                            <Menu mainPassword={mainPassword} name={name} />
+                        </Col>
+                        <Col md={3} style={{}}>
+                            <h3>Website registered</h3>
+                            <ListView items={websites}  onItemClick={onItemClick}/>
+                        </Col>
+                        <Col style={{backgroundColor: "rgb(248, 249, 250)", display: "flex", alignItems: "center", justifyContent: "center", minHeight:"100%"}}>
+                            {selectedWebsite !== -1 && websites !== undefined ? (
+                                <div>
+                                    <h4>{websites[selectedWebsite].Website}</h4>
+                                    <p>Login {websites[selectedWebsite].Login} </p>
+                                    <p> Encoded password {websites[selectedWebsite].Password}</p>
+                                    <Button variant="primary" onClick={pswToClipboard}>
+                                        Copy decrypted password to clipboard
+                                    </Button>
+                                    <p> Notes: {websites[selectedWebsite].Additional}</p>
+                                </div>
+                            ) : (
+                                <div style={{}}>
+                                    <Image src={PassManComics} width={"500px"}></Image>
+                                </div>
+                            )}
+                        </Col>
+                    </Row>
+            </div>
+        </div>
     );
 };
 

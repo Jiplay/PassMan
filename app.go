@@ -28,7 +28,7 @@ func (a *App) Greet(name string) string {
 }
 
 func (a *App) Login(name string, password string) string {
-	if len(name) <= 4 || len(password) < 12 {
+	if len(name) <= 3 || len(password) < 12 {
 		return "false"
 	}
 
@@ -50,7 +50,7 @@ func (a *App) Login(name string, password string) string {
 
 func (a *App) Register(name string, password string) string {
 	resp, errHash := HashPasswordBcrypt(password)
-	if errHash != nil || len(name) <= 4 {
+	if errHash != nil || len(name) <= 3 {
 		return "false"
 	}
 	client, err := mongodb.InitMongo()
@@ -99,7 +99,7 @@ func (a *App) SaveCredentials(userData mongodb.User, credentials mongodb.Credent
 }
 
 func (a *App) GetPasswordForUser(username string) []mongodb.Credentials {
-	if len(username) <= 5 {
+	if len(username) <= 3 {
 		return nil
 	}
 	client, err := mongodb.InitMongo()

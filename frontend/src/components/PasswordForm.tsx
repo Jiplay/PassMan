@@ -4,10 +4,11 @@ import Form from 'react-bootstrap/Form';
 import {FloatingLabel} from "react-bootstrap";
 
 type PasswordInputProps = {
+    placeholder: string;
     onUpdatePassword: (newPassword: string) => void;
 };
 
-function PasswordInput({ onUpdatePassword }: PasswordInputProps) {
+function PasswordInput({ onUpdatePassword, placeholder }: PasswordInputProps) {
     const [password, setPassword] = useState('');
 
     const handlePasswordChange = (e: { target: { value: any; }; }) => {
@@ -20,13 +21,13 @@ function PasswordInput({ onUpdatePassword }: PasswordInputProps) {
         <>
             <FloatingLabel
                 controlId="floatingInput"
-                label="Password"
+                label={placeholder}
                 className="mb-3"
             >
             <Form.Control
                 type="password"
                 id="inputPassword5"
-                placeholder="Password"
+                placeholder={placeholder}
                 aria-describedby="passwordHelpBlock"
                 value={password}
                 onChange={handlePasswordChange}

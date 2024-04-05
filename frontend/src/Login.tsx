@@ -42,7 +42,7 @@ function LoginPage() {
                             <h1 style={{color: 'white'}}> Login here</h1>
                             <div style={{margin: 'auto', marginTop: '45%'}}>
                                 <FormInput title={"Login"} onUpdateInput={setName} placeHolder={"example@name.com"}></FormInput>
-                                <PasswordInput onUpdatePassword={setPassword}></PasswordInput>
+                                <PasswordInput onUpdatePassword={setPassword} placeholder={"Password"}></PasswordInput>
                             </div>
                             <div style={{display: 'flex', justifyContent: 'center', margin: 'auto', marginTop: '5%'}}>
                                 <Button onClick={login}
@@ -53,7 +53,7 @@ function LoginPage() {
                                     You don't have an account yet ?
                                 </p>
                                 <Button style={{margin: 'auto'}} onClick={redirectToRegister}
-                                        variant="primary">Register</Button>
+                                        variant="secondary">Register</Button>
                             </div>
                         </Col>
                         <Col sm={2}>

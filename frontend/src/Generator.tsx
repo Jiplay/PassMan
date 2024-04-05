@@ -16,6 +16,7 @@ interface LocationState {
 
 import { BsFillShieldLockFill } from "react-icons/bs";
 import NbInput from "./components/NbInput";
+import Menu from "./components/Menu";
 
 interface ListItem {
     Website: string;
@@ -45,16 +46,11 @@ const Generator: React.FC = () => {
     }, []);
 
     return (
-        <>
-            <NavBarHome username={name} password={mainPassword}  onUpdatePassword={fetchNewPassword}/>
+        <div style={{overflow: "hidden", backgroundColor: 'rgb(248, 249, 250)', minHeight: '100vh'}}>
+    <NavBarHome username={name} password={mainPassword} onUpdatePassword={fetchNewPassword}/>
             <Row>
-                <Col sm={3} style={{backgroundColor: "rgb(29, 37, 53)", height: "90vh", width: "10%"}}>
-                    <div onClick={() => {
-                        navigate('/home', {state: {mainPassword: mainPassword, name: name}})
-                    }}>
-                        <BsFileLock2Fill style={{fontSize: "50px", color: "white", marginTop: "25px"}}/>
-                    </div>
-                    <BsFillShieldLockFill style={{fontSize: "50px", color: "white", marginTop: "50px"}}/>
+                <Col sm={3} style={{backgroundColor: "rgb(29, 37, 53)", height: "100vh", width:"10%"}}>
+                    <Menu mainPassword={mainPassword} name={name} />
                 </Col>
                 <Col style={{
                     backgroundColor: "rgb(248, 249, 250)",
@@ -70,12 +66,12 @@ const Generator: React.FC = () => {
                         <NbInput value={lenPassword} onChange={setLenPassword} />
                         </div>
                         <p style={{marginTop: "40px"}}>
-                            Advice of PassMan : Your password should never be less than 20 characters
+                            Advice of PassMan : Your password should never be less than 12 characters
                         </p>
                     </div>
                 </Col>
             </Row>
-        </>
+        </div>
     );
 };
 
