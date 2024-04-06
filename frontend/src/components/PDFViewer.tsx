@@ -14,7 +14,7 @@ function InfoCarousel() {
     const images = [slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8];
 
     return (
-        <Carousel>
+        <Carousel variant={'dark'}>
             {images.map((imageName, index) => (
                 <Carousel.Item key={index}>
                     <Image src={imageName} width={"95%"} />
