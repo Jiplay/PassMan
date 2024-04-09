@@ -4,3 +4,5 @@ frontend/dist
 config.json
 *.out
 *txt
+.DS_Store
+frontend/.DS_Store

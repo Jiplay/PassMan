@@ -1,0 +1,44 @@
+{
+  "password_security_tips": [
+    {
+      "title": "Use Unique Passwords",
+      "description": "Use a unique password for each account to prevent unauthorized access if one is compromised."
+    },
+    {
+      "title": "Avoid Guessable Passwords",
+      "description": "Avoid using easily guessable passwords like '123456' or 'password' to enhance security."
+    },
+    {
+      "title": "Enable Two-Factor Authentication",
+      "description": "Enable two-factor authentication whenever possible for an extra layer of protection against unauthorized access."
+    },
+    {
+      "title": "Regularly Update Passwords",
+      "description": "Regularly update your passwords to reduce the risk of them being compromised over time."
+    },
+    {
+      "title": "Use Passphrases",
+      "description": "Use a passphrase instead of a single word for added complexity and security."
+    },
+    {
+      "title": "Securely Store Passwords",
+      "description": "Store passwords securely using a trusted password manager to prevent unauthorized access."
+    },
+    {
+      "title": "Avoid Sharing Passwords",
+      "description": "Avoid sharing passwords via email or text messages to minimize the risk of interception."
+    },
+    {
+      "title": "Beware of Phishing",
+      "description": "Be cautious of phishing attempts and never provide your password in response to unsolicited requests."
+    },
+    {
+      "title": "Use Complex Passwords",
+      "description": "Use a combination of uppercase and lowercase letters, numbers, and special characters in your passwords for increased complexity."
+    },
+    {
+      "title": "Keep Password Manager Updated",
+      "description": "Keep your password manager software up to date to ensure it has the latest security patches and features."
+    }
+  ]
+}

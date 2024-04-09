@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
-import logo from './assets/images/logo-universal.png';
+import React, { useState} from 'react';
 import {Register} from "../wailsjs/go/main/App";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import {Button} from "react-bootstrap";
+import {Button, Image} from "react-bootstrap";
 import PasswordInput from "./components/PasswordForm";
 import FormInput from "./components/Form";
 import {useNavigate} from "react-router-dom";
@@ -13,19 +12,30 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Form from "react-bootstrap/Form";
+import FactsCards from "./components/FactsCards";
+import PassManComics from "./assets/images/PassManComics.png";
+import passwordTipsData from './assets/const/facts.json';
 
+type Facts = {
+    name: string;
+    description: string;
+};
 
-type PasswordExigence = {
-    length: boolean;
-    letters: boolean;
-    special: boolean;
-}
+type FactsCardsProps = {
+    facts: Facts[];
+};
 
 function RegisterPage() {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [passwordCheck, setPasswordCheck] = useState('');
     const navigate = useNavigate();
+
+
+    const passwordTips: Facts[] = passwordTipsData.password_security_tips.map((tip) => ({
+        name: tip.title,
+        description: tip.description,
+    }));
 
     async function register() {
 
@@ -42,62 +52,53 @@ function RegisterPage() {
         }
     }
 
-    function isPasswordLongEnough() {
-
-    }
-
     const redirectToHome = () => {
         navigate('/');
     };
 
     return (
         <>
-            <div style={{backgroundColor: 'rgb(29, 37, 53)', minHeight: '100vh'}}>
+            <div style={{backgroundColor: 'rgb(248, 249, 250)', minHeight: '100vh'}}>
                 <Container>
                     <Row>
-                        <Form.Text id="passwordHelpBlock" style={{ color: 'white', fontSize:"30px" }}>
+                        <Form.Text id="passwordHelpBlock" style={{ color: 'black', fontSize:"30px" }}>
                             Join the 5 people who are safe thanks to PassMan 😎
                         </Form.Text>
                         <Col sm={4} style={{
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'center',
-                            height: '100vh'
+                            backgroundColor: 'rgb(29, 37, 53)',
+                            height: '100vh',
+                            borderRadius: '10px'
                         }}>
-                            <div style={{margin: 'auto'}}>
+                            <div style={{margin:"auto"}}>
+
+                                <h3 style={{color: 'white', marginBottom: "10%"}}>Your info here 📝</h3>
+
                                 <FormInput title={"Login"} onUpdateInput={setName} placeHolder={"Login"}></FormInput>
                                 <PasswordInput onUpdatePassword={setPassword} placeholder={"Password"}></PasswordInput>
-                                <Form.Text id="passwordHelpBlock" style={{ color: 'white' }}>
-                                    Your password must be 13-20 characters long, contain letters and numbers,
-                                    and at least 1 special characters,
-                                    and must not contain spaces, or emoji.
+                                <Form.Text id="passwordRequirements" style={{color: 'white'}}>
+                                    <ul>
+                                        <li>Your password must be 13-20 characters long</li>
+                                        <li>Contain letters and numbers</li>
+                                        <li>Contain at least 1 special character</li>
+                                    </ul>
                                 </Form.Text>
                                 <div style={{marginTop: "20px"}}>
-
-                                    <PasswordInput onUpdatePassword={setPasswordCheck} placeholder={"Retype it, just in case"}></PasswordInput>
+                                    <PasswordInput onUpdatePassword={setPasswordCheck}
+                                                   placeholder={"Retype it, just in case"}></PasswordInput>
                                 </div>
-                                <br/>
-                                <Form.Text id="passwordHelpBlock" style={{ color: 'white' }}>
-                                    ⚠️ Warning, make sure to remember your password ⚠️
-                                </Form.Text>
                             </div>
                             <div style={{display: 'flex', justifyContent: 'center', margin: 'auto'}}>
                                 <Button style={{margin: 'auto', marginRight: '20px'}} onClick={register} variant="primary">Register</Button>
                                 <Button style={{margin: 'auto'}} onClick={redirectToHome} variant="secondary">Login</Button>
                             </div>
                         </Col>
-                        <Col sm={8}>
-                        <img src={logo} id="logo" alt="logo" width={"300px"} style={{marginTop: "20px", marginBottom: "50px"}}/>
-                            <h4 style={{color: 'white', marginBottom: "30px"}}>
-                                Welcome everyone ! 🎉
-                            </h4>
-                            <Form.Text id="presentationText" style={{ color: 'white', fontSize:" 18px" }}>
-                                This is Alpha version of my OWN password manager. Data is stored online in a safe database :)
-                                There is a presentation in the Info page for the curious out there, the technologies, the hows etc..
-                                But this is more a test, I'll probably use it myself with time, but for now it's just a
-                                cool project that I'm developing alone :)
-                            </Form.Text>
-                     </Col>
+                        <Col sm={8} style={{backgroundColor:"rgb(248, 249, 250)"}}>
+                            <Image src={PassManComics} width={"400px"}></Image>
+                            <FactsCards facts={passwordTips} />
+                        </Col>
                     </Row>
                 </Container>
             </div>
