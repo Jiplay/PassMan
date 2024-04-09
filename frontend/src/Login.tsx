@@ -41,7 +41,7 @@ function LoginPage() {
                         <Col sm={5}>
                             <h1 style={{color: 'white'}}> Login here</h1>
                             <div style={{margin: 'auto', marginTop: '45%'}}>
-                                <FormInput title={"Login"} onUpdateInput={setName} placeHolder={"example@name.com"}></FormInput>
+                                <FormInput title={"Login"} onUpdateInput={setName} placeHolder={"Login"}></FormInput>
                                 <PasswordInput onUpdatePassword={setPassword} placeholder={"Password"}></PasswordInput>
                             </div>
                             <div style={{display: 'flex', justifyContent: 'center', margin: 'auto', marginTop: '5%'}}>

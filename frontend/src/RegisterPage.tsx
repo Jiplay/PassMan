@@ -97,7 +97,7 @@ function RegisterPage() {
                                 But this is more a test, I'll probably use it myself with time, but for now it's just a
                                 cool project that I'm developing alone :)
                             </Form.Text>
-wails                         </Col>
+                     </Col>
                     </Row>
                 </Container>
             </div>
