@@ -1,36 +1,33 @@
 import React, { useState} from 'react';
 import {Register} from "../wailsjs/go/main/App";
+import PasswordInput from "./components/PasswordForm";
+import FormInput from "./components/Form";
+import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
+import FactsCards from "./components/FactsCards";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {Button, Image} from "react-bootstrap";
-import PasswordInput from "./components/PasswordForm";
-import FormInput from "./components/Form";
-import {useNavigate} from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {toast} from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import Form from "react-bootstrap/Form";
-import FactsCards from "./components/FactsCards";
+
 import PassManComics from "./assets/images/PassManComics.png";
 import passwordTipsData from './assets/const/facts.json';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 type Facts = {
     name: string;
     description: string;
 };
 
-type FactsCardsProps = {
-    facts: Facts[];
-};
-
 function RegisterPage() {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [passwordCheck, setPasswordCheck] = useState('');
+    const [waitProcessing, setWaitProcessing] = useState(false);
     const navigate = useNavigate();
-
 
     const passwordTips: Facts[] = passwordTipsData.password_security_tips.map((tip) => ({
         name: tip.title,
@@ -40,12 +37,17 @@ function RegisterPage() {
     async function register() {
 
         if (password === passwordCheck) {
-            let res = await Register(name, password)
-            if (res == "false") {
-                toast.error("Registration failed")
-            } else if (res == "true") {
-                toast.success("Registration success")
-                navigate('/');
+            if (!waitProcessing) {
+                setWaitProcessing(true)
+                let res = await Register(name, password)
+                if (res == "false") {
+                    setWaitProcessing(false)
+                    toast.error("Registration failed")
+                } else if (res == "true") {
+                    setWaitProcessing(false)
+                    toast.success("Registration success")
+                    navigate('/');
+                }
             }
         } else {
             toast.error("Passwords don't match")
@@ -68,14 +70,12 @@ function RegisterPage() {
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'center',
-                            backgroundColor: 'rgb(29, 37, 53)',
-                            height: '100vh',
+                            backgroundColor: 'rgb(0, 90, 146)',
+                            height: '90vh',
                             borderRadius: '10px'
                         }}>
                             <div style={{margin:"auto"}}>
-
                                 <h3 style={{color: 'white', marginBottom: "10%"}}>Your info here 📝</h3>
-
                                 <FormInput title={"Login"} onUpdateInput={setName} placeHolder={"Login"}></FormInput>
                                 <PasswordInput onUpdatePassword={setPassword} placeholder={"Password"}></PasswordInput>
                                 <Form.Text id="passwordRequirements" style={{color: 'white'}}>
@@ -85,7 +85,7 @@ function RegisterPage() {
                                         <li>Contain at least 1 special character</li>
                                     </ul>
                                 </Form.Text>
-                                <div style={{marginTop: "20px"}}>
+                                <div>
                                     <PasswordInput onUpdatePassword={setPasswordCheck}
                                                    placeholder={"Retype it, just in case"}></PasswordInput>
                                 </div>

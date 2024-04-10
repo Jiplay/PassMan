@@ -18,5 +18,6 @@ But I'm not done, I'll create other to develop my skills, and to fill my needs :
 ## Building
 
 To build a redistributable, production mode package, use `wails build`.
+https://wails.io/docs/next/reference/cli#platforms
 
 To build a windows application : `wails build -platform windows/amd64 -nsis`

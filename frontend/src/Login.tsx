@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {Login} from "../wailsjs/go/main/App";
 import PassMan from './assets/images/PassMan.png'
 import Container from 'react-bootstrap/Container';
@@ -12,6 +12,7 @@ import {useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {toast} from "react-toastify";
+import Form from "react-bootstrap/Form";
 
 function LoginPage() {
     const [name, setName] = useState('');
@@ -32,15 +33,21 @@ function LoginPage() {
 
     return (
         <>
-            <div style={{backgroundColor: 'rgb(29, 37, 53)', minHeight: '100vh'}}>
+            <div style={{backgroundColor: 'rgb(248, 249, 250)', minHeight: '100vh'}}>
                 <Container>
                     <Row>
-                        <Col sm={5} style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                            <Image src={PassMan} width={"300px"}></Image>
-                        </Col>
-                        <Col sm={5}>
-                            <h1 style={{color: 'white'}}> Login here</h1>
-                            <div style={{margin: 'auto', marginTop: '45%'}}>
+                        <Col style={{
+                            flexDirection: 'column',
+                            justifyContent: 'right',
+                            backgroundColor: 'rgb(0, 90, 146)',
+                            height: '90vh',
+                            marginTop: '20px',
+                            maxWidth: "60%",
+                            borderRadius: '10px'}}>
+                                <Form.Text id="passwordHelpBlock" style={{ color: 'white', fontSize:"30px" }}>
+                                    Login right here to access your passwords 😎
+                                </Form.Text>
+                            <div style={{margin: 'auto', marginTop: '30%', maxWidth: "80%"}}>
                                 <FormInput title={"Login"} onUpdateInput={setName} placeHolder={"Login"}></FormInput>
                                 <PasswordInput onUpdatePassword={setPassword} placeholder={"Password"}></PasswordInput>
                             </div>
@@ -55,8 +62,6 @@ function LoginPage() {
                                 <Button style={{margin: 'auto'}} onClick={redirectToRegister}
                                         variant="secondary">Register</Button>
                             </div>
-                        </Col>
-                        <Col sm={2}>
                         </Col>
                     </Row>
                 </Container>
