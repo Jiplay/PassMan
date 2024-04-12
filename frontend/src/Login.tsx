@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import {Login} from "../wailsjs/go/main/App";
-import PassMan from './assets/images/PassMan.png'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import {Button, Image} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import PasswordInput from "./components/PasswordForm";
 import FormInput from "./components/Form";
 import {useNavigate} from "react-router-dom";
@@ -12,7 +11,6 @@ import {useNavigate} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {toast} from "react-toastify";
-import Form from "react-bootstrap/Form";
 
 function LoginPage() {
     const [name, setName] = useState('');
@@ -31,40 +29,37 @@ function LoginPage() {
         navigate('/register');
     };
 
+    // const redirectToHome = () => {
+    //     navigate('/home', { state : {mainPassword: "password", name: "Ibrahim" }})
+    // }
+
     return (
         <>
-            <div style={{backgroundColor: 'rgb(248, 249, 250)', minHeight: '100vh'}}>
-                <Container>
-                    <Row>
-                        <Col style={{
-                            flexDirection: 'column',
-                            justifyContent: 'right',
-                            backgroundColor: 'rgb(0, 90, 146)',
-                            height: '90vh',
-                            marginTop: '20px',
-                            maxWidth: "60%",
-                            borderRadius: '10px'}}>
-                                <Form.Text id="passwordHelpBlock" style={{ color: 'white', fontSize:"30px" }}>
-                                    Login right here to access your passwords 😎
-                                </Form.Text>
-                            <div style={{margin: 'auto', marginTop: '30%', maxWidth: "80%"}}>
-                                <FormInput title={"Login"} onUpdateInput={setName} placeHolder={"Login"}></FormInput>
-                                <PasswordInput onUpdatePassword={setPassword} placeholder={"Password"}></PasswordInput>
-                            </div>
-                            <div style={{display: 'flex', justifyContent: 'center', margin: 'auto', marginTop: '5%'}}>
-                                <Button onClick={login}
-                                        variant="primary">Login</Button>
-                            </div>
-                            <div style={{marginTop: '10%'}}>
-                                <p style={{color: 'white'}}>
-                                    You don't have an account yet ?
-                                </p>
-                                <Button style={{margin: 'auto'}} onClick={redirectToRegister}
-                                        variant="secondary">Register</Button>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
+            <div style={{width: '100%', height: '100vh', backgroundColor:"white"}}>
+            <Container>
+                <Row sm={4}>
+                    <div style={{marginTop: "10px"}}>
+                        <FormInput title={"Login"} onUpdateInput={setName} placeHolder={"Login"}></FormInput>
+                    </div>
+                    <div style={{marginTop: "10px"}}>
+                        <PasswordInput onUpdatePassword={setPassword} placeholder={"Password"}></PasswordInput>
+                    </div>
+                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end', margin: 'auto'}}>
+                            <Button onClick={login}
+                                    variant="primary" style={{marginBottom: '10px', width: "100%"}}>Login</Button>
+                            <Button onClick={redirectToRegister} variant="secondary"
+                                    style={{width: "100%"}}>Register</Button>
+                        </div>
+                    {/*<Button style={{}} onClick={redirectToHome}*/}
+                    {/*        variant="danger">Button for IB</Button>*/}
+                </Row>
+                <Col xl={8} style={{
+                    height: 'calc(100vh - 20px)',
+                    marginTop: '20px',
+                    borderRadius: '10px'}}>
+                    <iframe src={"https://jgblog.vercel.app/"} width="100%" height="100%"/>
+                </Col>
+            </Container>
             </div>
         </>
     )
