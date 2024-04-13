@@ -63,7 +63,7 @@ function RegisterPage() {
             <div style={{backgroundColor: 'rgb(248, 249, 250)', minHeight: '100vh'}}>
                 <Container>
                     <Row>
-                        <Form.Text id="passwordHelpBlock" style={{ color: 'black', fontSize:"30px" }}>
+                        <Form.Text id="Title" style={{ color: 'black', fontSize:"30px" }}>
                             Join the 5 people who are safe thanks to PassMan 😎
                         </Form.Text>
                         <Col sm={4} style={{
