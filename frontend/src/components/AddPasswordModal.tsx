@@ -38,10 +38,28 @@ function AddPasswordModal( { titleModal, titleButton, username, password, onUpda
         handleCloseSafe()
 
         if (res === "true") {
-            toast.success("I'll remember it")
+            toast.success("I'll remember it", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
             onUpdatePassword("1")
         } else {
-            toast.error("Unable to remember this.")
+            toast.error("Unable to remember this.", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
         console.log("State : ", res)
     }

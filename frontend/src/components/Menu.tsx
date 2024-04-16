@@ -1,6 +1,7 @@
 import React from "react";
 import {BsFileLock2Fill, BsFillInfoCircleFill, BsFillShieldLockFill} from "react-icons/bs";
 import {useNavigate} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 
 type MenuProps = {
@@ -11,6 +12,10 @@ type MenuProps = {
 const Menu: React.FC<MenuProps> = ({ mainPassword, name}) => {
     const navigate = useNavigate();
 
+    function disconnect() {
+        localStorage.removeItem("ID");
+        navigate('/')
+    }
     return (
         <>
             <div onClick={() => {
@@ -27,6 +32,10 @@ const Menu: React.FC<MenuProps> = ({ mainPassword, name}) => {
                 navigate('/info', {state: {mainPassword: mainPassword, name: name}});
             }}>
                 <BsFillInfoCircleFill style={{fontSize: "50px", color: "white", marginTop: "50px"}}/>`
+            </div>
+            <div style={{ fontSize: "50px", color: "white", marginTop: "250px", marginLeft: "10%"}}>
+                <Button onClick={disconnect}
+                        variant="danger" style={{width: "100%"}}>Logout</Button>
             </div>
         </>
     );
