@@ -6,16 +6,16 @@ export function DecryptPsw(arg1, arg2) {
   return window['go']['main']['App']['DecryptPsw'](arg1, arg2);
 }
 
+export function DeletePassword(arg1, arg2) {
+  return window['go']['main']['App']['DeletePassword'](arg1, arg2);
+}
+
 export function GenerateSafePassword(arg1) {
   return window['go']['main']['App']['GenerateSafePassword'](arg1);
 }
 
 export function GetPasswordForUser(arg1) {
   return window['go']['main']['App']['GetPasswordForUser'](arg1);
-}
-
-export function Greet(arg1) {
-  return window['go']['main']['App']['Greet'](arg1);
 }
 
 export function Login(arg1, arg2) {

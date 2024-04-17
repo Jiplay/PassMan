@@ -4,11 +4,11 @@ import {mongodb} from '../models';
 
 export function DecryptPsw(arg1:string,arg2:string):Promise<string>;
 
+export function DeletePassword(arg1:string,arg2:string):Promise<boolean>;
+
 export function GenerateSafePassword(arg1:number):Promise<string>;
 
 export function GetPasswordForUser(arg1:string):Promise<Array<mongodb.Credentials>>;
-
-export function Greet(arg1:string):Promise<string>;
 
 export function Login(arg1:string,arg2:string):Promise<string>;
 

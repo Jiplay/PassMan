@@ -6,3 +6,4 @@ config.json
 *txt
 .DS_Store
 frontend/.DS_Store
+.idea

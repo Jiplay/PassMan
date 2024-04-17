@@ -22,11 +22,6 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-// Greet returns a greeting for the given name
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
-}
-
 func (a *App) Login(name string, password string) string {
 	if len(name) <= 3 || len(password) < 12 {
 		return "false"
@@ -83,6 +78,17 @@ func (a *App) SaveCredentials(userData mongodb.User, credentials mongodb.Credent
 		return "false"
 	}
 
+	vaults, err := mongodb.GetPasswords(client, userData.Login)
+	if err != nil {
+		return "false"
+	}
+
+	for _, credential := range vaults.Credentials {
+		if credential.Website == credentials.Website {
+			return "false"
+		}
+	}
+
 	pswEncoded, _ := Encrypt(userData.Password, credentials.Password)
 
 	creds := mongodb.Credentials{
@@ -127,4 +133,16 @@ func (a *App) DecryptPsw(mainPassword string, password string) string {
 	}
 
 	return psw
+}
+
+func (a *App) DeletePassword(username string, website string) bool {
+	if len(username) <= 3 || len(website) <= 3 {
+		return false
+	}
+	client, err := mongodb.InitMongo()
+	resp, err := mongodb.RemovePassword(client, username, website)
+	if err != nil || resp == false {
+		return false
+	}
+	return true
 }

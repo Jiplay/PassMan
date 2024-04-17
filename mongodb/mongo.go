@@ -127,8 +127,8 @@ func initVault(client *mongo.Client, username string, hash string) (bool, error)
 	vaultCollection := client.Database("PassMan").Collection("Vaults")
 
 	v := Vault{
-		username,
-		[]Credentials{},
+		Login:       username,
+		Credentials: []Credentials{},
 	}
 
 	_, err := vaultCollection.InsertOne(context.Background(), v)
@@ -150,6 +150,24 @@ func AddPassword(client *mongo.Client, username string, credentials Credentials)
 
 	if err != nil {
 		return false, err
+	}
+
+	return true, nil
+}
+
+func RemovePassword(client *mongo.Client, username string, passwordID string) (bool, error) {
+	vaultsCollection := client.Database("PassMan").Collection("Vaults")
+
+	filter := bson.M{"login": username}
+	update := bson.M{"$pull": bson.M{"credentials": bson.M{"website": passwordID}}}
+
+	result, err := vaultsCollection.UpdateOne(context.Background(), filter, update)
+	if err != nil {
+		return false, err
+	}
+
+	if result.ModifiedCount == 0 {
+		return false, nil
 	}
 
 	return true, nil
