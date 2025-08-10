@@ -34,7 +34,7 @@ function AddPasswordModal( { titleModal, titleButton, username, password, onUpda
 
     async function saveData() {
         let res: string;
-        res = await SaveCredentials({"login": username, "password": password}, {"Website": website, "Login": newLogin, "Password": newPassword, "Additional": info});
+        res = await SaveCredentials({"Login": username, "Password": password}, {"Website": website, "Login": newLogin, "Password": newPassword, "Additional": info});
         handleCloseSafe()
 
         if (res === "true") {

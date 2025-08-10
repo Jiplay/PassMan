@@ -5,10 +5,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"os"
 )
 
 type config struct {
@@ -62,6 +63,7 @@ func InitMongo() (*mongo.Client, error) {
 	if err != nil {
 		return nil, fmt.Errorf("coudn't decode file")
 	}
+	// FIXME When building it needs to be hardcoded here
 	URI := fmt.Sprintf("mongodb+srv://%s:%s@passman0.dvs4rna.mongodb.net/?retryWrites=true&w=majority&appName=PassMan0", cfg.User, cfg.Key)
 	clientOptions := options.Client().ApplyURI(URI)
 
