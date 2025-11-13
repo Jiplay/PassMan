@@ -58,13 +58,8 @@ func getCredentialsFromFile(path string) (config, error) {
 }
 
 func InitMongo() (*mongo.Client, error) {
-	// Set up client options
-	cfg, err := getCredentialsFromFile("config.json")
-	if err != nil {
-		return nil, fmt.Errorf("coudn't decode file")
-	}
-	// FIXME When building it needs to be hardcoded here
-	URI := fmt.Sprintf("mongodb+srv://%s:%s@passman0.dvs4rna.mongodb.net/?retryWrites=true&w=majority&appName=PassMan0", cfg.User, cfg.Key)
+	// Set up client options for local MongoDB
+	URI := "mongodb://localhost:27017"
 	clientOptions := options.Client().ApplyURI(URI)
 
 	// Connect to MongoDB
